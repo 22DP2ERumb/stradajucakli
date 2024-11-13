@@ -1,12 +1,58 @@
 const input = document.getElementById("myInput");
-const submitButton = document.getElementById("submitBtn");
-const header = document.getElementById("result");
+const resultDisplay = document.getElementById("result");
+const historyList = document.getElementById("historyList");
 
-submitButton.addEventListener("click", function() {
-    const inputValue = input.value;
-    console.log(inputValue);
+function appendValue(value) {
+    input.value += value;
+}
 
-    let result = eval(inputValue)
+function clearInput() {
+    input.value = "";
+    resultDisplay.textContent = "";
+}
 
-    header.textContent = result;
-});
+function calculate() {
+    try {
+        const result = eval(input.value);
+        resultDisplay.textContent = result;
+        saveHistory(input.value + " = " + result);
+        input.value = result;
+    } catch (error) {
+        resultDisplay.textContent = "Error";
+    }
+}
+
+function saveHistory(entry) {
+    const history = JSON.parse(localStorage.getItem("history")) || [];
+    history.push(entry);
+    localStorage.setItem("history", JSON.stringify(history));
+    updateHistory();
+}
+
+function updateHistory() {
+    historyList.innerHTML = "";
+    const history = JSON.parse(localStorage.getItem("history")) || [];
+    history.forEach((entry, index) => {
+        const li = document.createElement("li");
+        li.textContent = entry;
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = () => deleteHistoryEntry(index);
+        li.appendChild(deleteButton);
+        historyList.appendChild(li);
+    });
+}
+
+function deleteHistoryEntry(index) {
+    const history = JSON.parse(localStorage.getItem("history")) || [];
+    history.splice(index, 1);
+    localStorage.setItem("history", JSON.stringify(history));
+    updateHistory();
+}
+
+function clearHistory() {
+    localStorage.removeItem("history");
+    updateHistory();
+}
+
+window.onload = updateHistory;

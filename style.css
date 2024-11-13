@@ -1,0 +1,56 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+}
+
+.calculator {
+    border: 2px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 260px;
+    background-color: #fff;
+}
+
+input[type="text"] {
+    width: 100%;
+    height: 40px;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    text-align: right;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.buttons button {
+    width: 60px;
+    height: 40px;
+    font-size: 1em;
+    margin: 5px;
+}
+
+.history {
+    margin-top: 20px;
+}
+
+#historyList {
+    list-style: none;
+    padding: 0;
+}
+
+#historyList li {
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+#historyList button {
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
